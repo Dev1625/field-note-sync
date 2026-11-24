@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#143028">
+  <title>Field Note Sync</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="top"><div class="bar"><a href="/">Field Note Sync</a><span id="connection">Checking connection</span></div></header>
+  <main>
+    <div class="intro">
+      <h1>Station notebook</h1>
+      <p>Capture field observations offline and sync them when the connection returns.</p>
+    </div>
+    <div class="layout">
+      <section class="panel compose" aria-labelledby="new-label">
+        <h2 id="new-label">New observation</h2>
+        <form id="note-form">
+          <label for="station">Station</label>
+          <select id="station">
+            <option value="ridge-station">Ridge station</option>
+            <option value="creek-gauge">Creek gauge</option>
+          </select>
+          <label for="note">Field note</label>
+          <textarea id="note" maxlength="500" rows="4" required placeholder="For example, verify the sensor mount after rain."></textarea>
+          <button id="queue" class="primary" type="submit">Save to outbox</button>
+        </form>
+        <div class="session">
+          <button id="offline" class="secondary" type="button">Work offline</button>
+          <button id="simulate" class="text-button" type="button">Simulate another writer</button>
+        </div>
+      </section>
+      <section class="panel records" aria-labelledby="records-label">
+        <div class="section-head">
+          <div><h2 id="records-label">Observations</h2><p id="revision">Loading station history</p></div>
+          <button id="sync" class="primary" type="button">Sync outbox</button>
+        </div>
+        <p id="message" role="status" aria-live="polite"></p>
+        <div id="conflict" class="conflict" hidden>
+          <p id="conflict-text"></p>
+          <button id="rebase" type="button" class="secondary">Rebase notes</button>
+        </div>
+        <h3>Outbox <span id="pending-count">0</span></h3>
+        <ul id="outbox" class="entries"></ul>
+        <h3>Saved to server</h3>
+        <ul id="saved" class="entries"></ul>
+      </section>
+    </div>
+    <footer>Demo stations and observations are fictional.</footer>
+  </main>
+</body>
+</html>
